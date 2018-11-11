@@ -14,6 +14,10 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.opengl.Matrix;
 import android.os.Build;
 import android.os.Handler;
@@ -51,12 +55,13 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
     public static final int REQUEST_LOCATION_PERMISSIONS_CODE = 0;
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 10 meters
-    private static final long MIN_TIME_BW_UPDATES = 0;
+    private static final long MIN_TIME_BW_UPDATES = 1*1000*60;
 
     private LocationManager locationManager;
     public Location location;
     private Button indoorBtn;
     private Button outdoorBtn;
+    private String currentAPMacAddress;
     private boolean isInside;
     boolean isGPSEnabled;
     boolean isNetworkEnabled;
@@ -79,11 +84,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
         outdoorBtn = (Button) findViewById(R.id.outdoor);
         reloadLocation = (Button)findViewById(R.id.reloadLocation);
         detailLocation = (Button)findViewById(R.id.popupButton);
-        isInside = true;
-
-
-//        final GPSBackThread GPSthread = new GPSBackThread();
-//        GPSthread.setDaemon(true);
+        isInside = false;
 
 
         indoorBtn.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +99,13 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
                 outdoorBtn.setTextColor(Color.rgb(48, 48, 48));
 
                 isInside = true;
+
+
+                currentAPMacAddress = getMacId().toUpperCase();
+
+                if(currentAPMacAddress.equals("00:07:89:46:08:11"))
+                    tvCurrentLocation.setText("카페베네");
+
             }
         });
 
@@ -152,11 +160,13 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
 
     @Override
     public void onResume() {
-        super.onResume();
-        requestLocationPermission();
-        requestCameraPermission();
-        registerSensors();
-        initAROverlayView();
+        if(!isInside) {
+            super.onResume();
+            requestLocationPermission();
+            requestCameraPermission();
+            registerSensors();
+            initAROverlayView();
+        }
     }
 
     @Override
@@ -234,27 +244,6 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
             camera = null;
         }
     }
-    /*class APBackThread extends Thread{
-        @Override
-        public void run(){
-            while(true){
-                currentAPMacAddress=getMacId().toUpperCase();
-                for (HashMap<String, String> entry : mArrayList) {
-                    _mac = entry.get(TAG_MAC).toString();
-                    if (_mac.equals(currentAPMacAddress)) {
-                        _info = entry.get(TAG_INFO).toString();
-                        handler.sendEmptyMessage(0);
-                    }
-                }
-                try {
-                    Thread.sleep(1000);
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-    */
 
     private void registerSensors() {
         sensorManager.registerListener(this,
@@ -358,5 +347,17 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
     @Override
     public void onProviderDisabled(String s) {
 
+    }
+
+    private String getMacId() { //ap address를 불러옵니다.
+        ConnectivityManager connManager=(ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if(networkInfo.isConnected()){
+            final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            final WifiInfo connectionInfo=wifiManager.getConnectionInfo();
+
+            return connectionInfo.getBSSID();
+        }
+        return null;
     }
 }
