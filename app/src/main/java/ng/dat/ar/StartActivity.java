@@ -4,20 +4,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 public class StartActivity extends BaseActivity {
+
+    private ImageView img;
+    private Button startbutton;
+    private float alpha;
+    private int flag=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        Thread removeTemp = new Thread(new Runnable() {
+        img = (ImageView) findViewById(R.id.tempImage);
+        startbutton = (Button)findViewById(R.id.button);
+        startbutton.setEnabled(false);
+        final Thread removeTemp;
+
+        removeTemp = new Thread(new Runnable() {
             @Override
             public void run() {
                 synchronized(this){
-                    float alpha = 1.2F;
+                    alpha = 1.2F;
                     while(alpha > 0) {
                         if(alpha < 0.7){
                             alpha-=0.025;
@@ -30,21 +41,50 @@ public class StartActivity extends BaseActivity {
                             alpha = 0;
                             e.printStackTrace();
                         }finally {
-                            setInvisible(alpha);
+                            img.setAlpha(alpha);
                         }
+                    }
+                    notify();
+                    try{
+                        startbutton.setEnabled(true);
+                    }
+                    catch(Exception e){
+
                     }
                 }
             }
         });
 
-        removeTemp.start();
+
+        Thread stop = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                removeTemp.start();
+
+                synchronized (removeTemp){
+                    try{
+                        removeTemp.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    startbutton.setEnabled(true);
+
+                }
+            }
+        });
+        stop.start();
+
+
+
+
+
+
 
     }
     public void setInvisible(float alpha) {
-        ImageView img = (ImageView) findViewById(R.id.tempImage);
-
         img.setAlpha(alpha);
     }
+
     public void click_start(View v){
         Intent intent = new Intent(getApplicationContext(),ARActivity.class);
         startActivity(intent);
