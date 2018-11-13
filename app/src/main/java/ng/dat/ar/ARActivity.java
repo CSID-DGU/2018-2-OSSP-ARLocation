@@ -156,6 +156,9 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
         detailLocation.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(),ListActivity.class);
+                String[] str = arOverlayView.getBuildingNameList();
+
+                intent.putExtra("buildingNameList", str);
                 startActivity(intent);
             }
         });

@@ -25,6 +25,7 @@ public class AROverlayView extends View {
     private float[] rotatedProjectionMatrix = new float[16];
     private Location currentLocation;
     private List<ARPoint> arPoints;
+    private String[] buildingNameList;
 
 
     public AROverlayView(Context context) {
@@ -40,6 +41,11 @@ public class AROverlayView extends View {
             add(new ARPoint("학군단3", 37.558746, 126.998795, 92));
             add(new ARPoint("학군단4", 37.558765, 126.998741, 92 ));
         }};
+
+        buildingNameList = new String[arPoints.size()];
+        for(int i=0; i<arPoints.size();i++){
+            buildingNameList[i] = null;
+        }
     }
 
     public void updateRotatedProjectionMatrix(float[] rotatedProjectionMatrix) {
@@ -67,6 +73,7 @@ public class AROverlayView extends View {
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
         paint.setTextSize(60);
 
+        int z=0;
         for (int i = 0; i < arPoints.size(); i ++) {
             float[] currentLocationInECEF = LocationHelper.WSG84toECEF(currentLocation);
             float[] pointInECEF = LocationHelper.WSG84toECEF(arPoints.get(i).getLocation());
@@ -80,11 +87,16 @@ public class AROverlayView extends View {
             if (cameraCoordinateVector[2] < 0) {
                 float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
                 float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();
-                if(currentLocation.getLatitude()-arPoints.get(i).getLocation().getLatitude()<=0.0003) {
+                if(currentLocation.getLatitude()-arPoints.get(i).getLocation().getLatitude()<=0.0002) {
                     canvas.drawCircle(x, y, radius, paint);
                     canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
+                    buildingNameList[z] = arPoints.get(i).getName();
                 }
             }
         }
+    }
+
+    public String[] getBuildingNameList(){
+        return buildingNameList;
     }
 }
