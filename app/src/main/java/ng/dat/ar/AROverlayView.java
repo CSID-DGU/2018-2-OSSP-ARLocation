@@ -91,6 +91,7 @@ public class AROverlayView extends View {
                     canvas.drawCircle(x, y, radius, paint);
                     canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
                     buildingNameList[z] = arPoints.get(i).getName();
+                    z++;
                 }
             }
         }
