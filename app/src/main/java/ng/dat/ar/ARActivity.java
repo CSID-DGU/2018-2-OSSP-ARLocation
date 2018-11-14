@@ -102,7 +102,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
                 try {
                     currentAPMacAddress = getMacId().toUpperCase();
 
-                    if(currentAPMacAddress.equals("00:07:89:46:08:11"))
+                    if(currentAPMacAddress.equals("a8:bd:27:80:27:11"))
                         tvCurrentLocation.setText("카페베네");
                 }catch(NullPointerException e){
                     Toast.makeText(getApplicationContext(),"와이파이를 연결해주세요.",Toast.LENGTH_SHORT).show();
