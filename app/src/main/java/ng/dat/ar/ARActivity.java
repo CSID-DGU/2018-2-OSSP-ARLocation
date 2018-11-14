@@ -166,13 +166,11 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
 
     @Override
     public void onResume() {
-        if(!isInside) {
-            super.onResume();
-            requestLocationPermission();
-            requestCameraPermission();
-            registerSensors();
-            initAROverlayView();
-        }
+        super.onResume();
+        requestLocationPermission();
+        requestCameraPermission();
+        registerSensors();
+        initAROverlayView();
     }
 
     @Override
