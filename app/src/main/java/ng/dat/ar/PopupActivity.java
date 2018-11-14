@@ -1,8 +1,10 @@
 package ng.dat.ar;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,13 +12,19 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import ng.dat.ar.Utils.ReqeustHttpURLConnection;
+
 public class PopupActivity extends Activity {
 
-    private TextView buildingname;
+    private TextView building;
     private Button btn;
     private TextView r1;
     private TextView r2;
     private TextView r;
+    private String url_bname;
 
 
     @Override
@@ -26,18 +34,30 @@ public class PopupActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup);
 
+        Intent intent =getIntent();
+        String buildingName = intent.getStringExtra("buildingName");
+
         //UI 객체생성
-        buildingname = (TextView)findViewById(R.id.buildingname);
+        building = (TextView)findViewById(R.id.buildingname);
         btn = (Button)findViewById(R.id.closebtn);
         r1= (TextView)findViewById(R.id.resulttext1);
         r2= (TextView)findViewById(R.id.resulttext2);
         r= (TextView)findViewById(R.id.result);
 
+        building.setText(buildingName);
 
-        buildingname.setText("temp");
+
+        String url_start="http://52.78.123.18/outdoor.php?bname=%27";
+        url_bname=buildingName;
+        String url_end="%27";
+        String url= url_start + url_bname + url_end;
+
+        // AsyncTask를 통해 HttpURLConnection 수행.
+        NetworkTask networkTask = new NetworkTask(url, null);
+        networkTask.execute();
 
         r1.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
-        buildingname.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
+        building.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
         r2.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
         r.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
 
@@ -50,4 +70,42 @@ public class PopupActivity extends Activity {
 
     }
 
+    public class NetworkTask extends AsyncTask<Void, Void, String> {
+
+        private String url;
+        private ContentValues values;
+
+        public NetworkTask(String url, ContentValues values) {
+
+            this.url = url;
+            this.values = values;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            String result; // 요청 결과를 저장할 변수.
+            ReqeustHttpURLConnection requestHttpURLConnection = new ReqeustHttpURLConnection();
+            result = requestHttpURLConnection.request(url, values); // 해당 URL로 부터 결과물을 얻어온다.
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
+            //tv_outPut.setText(s);
+
+            try {
+                JSONObject json = new JSONObject(s);
+                if(json.getString("bname").equals(url_bname))
+                    r.setText(json.getString("content"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 }

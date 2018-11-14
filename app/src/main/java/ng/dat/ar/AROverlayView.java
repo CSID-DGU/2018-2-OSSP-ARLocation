@@ -40,6 +40,8 @@ public class AROverlayView extends View {
             add(new ARPoint("학군단2", 37.558594, 126.998749, 92));
             add(new ARPoint("학군단3", 37.558746, 126.998795, 92));
             add(new ARPoint("학군단4", 37.558765, 126.998741, 92 ));
+            add(new ARPoint("동양파라빌", 37.5740069, 127.0205818, 92));
+            add(new ARPoint("원흥별관", 37.55865, 126.99872, 69.2));
         }};
 
         buildingNameList = new String[arPoints.size()];

@@ -86,7 +86,6 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
         detailLocation = (Button)findViewById(R.id.popupButton);
         isInside = false;
 
-
         indoorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

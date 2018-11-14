@@ -22,7 +22,7 @@ public class ListActivity extends AppCompatActivity {
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.rgb(0xED, 0x7D, 0x31)));
 
-        Button btn[] = new Button[buildingNameList.length];
+        final Button btn[] = new Button[buildingNameList.length];
         for(int i=0; i<buildingNameList.length; i++){
             if(buildingNameList[i]==null) break;
 
@@ -30,9 +30,13 @@ public class ListActivity extends AppCompatActivity {
             btn[i].setText(buildingNameList[i]);
             btn[i].setId(i);
             linear1.addView(btn[i]);
+            final String temp = buildingNameList[i];
+
             btn[i].setOnClickListener(new Button.OnClickListener(){
                 public void onClick(View v){
                     Intent intent = new Intent(getApplicationContext(),PopupActivity.class);
+                    //건물이름 받아와야함
+                    intent.putExtra("buildingName", temp);
                     startActivity(intent);
                 }
             });
