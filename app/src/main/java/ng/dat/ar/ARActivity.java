@@ -62,7 +62,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
     private Button indoorBtn;
     private Button outdoorBtn;
     private String currentAPMacAddress;
-    private boolean isInside;
+    public boolean isInside;
     boolean isGPSEnabled;
     boolean isNetworkEnabled;
     boolean locationServiceAvailable;
