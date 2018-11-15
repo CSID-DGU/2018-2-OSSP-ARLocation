@@ -62,7 +62,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
     private Button indoorBtn;
     private Button outdoorBtn;
     private String currentAPMacAddress;
-    private boolean isInside;
+    public boolean isInside;
     boolean isGPSEnabled;
     boolean isNetworkEnabled;
     boolean locationServiceAvailable;
@@ -73,7 +73,6 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
         setContentView(R.layout.activity_ar);
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.rgb(0xED, 0x7D, 0x31)));
-
 
         sensorManager = (SensorManager) this.getSystemService(SENSOR_SERVICE);
         cameraContainerLayout = (FrameLayout) findViewById(R.id.camera_container_layout);
@@ -101,7 +100,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
 
                 try {
                     currentAPMacAddress = getMacId().toUpperCase();
-
+                    /**이부분 함수로 구현해야함**/
                     if(currentAPMacAddress.equals("B4:5D:50:6A:43:F2"))
                         tvCurrentLocation.setText("알파실");
                     else if(currentAPMacAddress.equals("0"))
@@ -147,8 +146,16 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
                 }
 
                 if(isInside){//실내일때 위치정보 다시 불러오기
-                    //TODO: implements this
-                    System.out.println("not implements!");
+                    try {
+                        currentAPMacAddress = getMacId().toUpperCase();
+                        /**이부분 함수로 구현해야함**/
+                        if(currentAPMacAddress.equals("B4:5D:50:6A:43:F2"))
+                            tvCurrentLocation.setText("알파실");
+                        else if(currentAPMacAddress.equals("0"))
+                            tvCurrentLocation.setText("없");
+                    }catch(NullPointerException e){
+                        Toast.makeText(getApplicationContext(),"와이파이를 연결해주세요.",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
