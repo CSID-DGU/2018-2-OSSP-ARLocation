@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 import ng.dat.ar.Utils.ReqeustHttpURLConnection;
 
-public class PopupActivity extends Activity {
+public class OutDoorPopupActivity extends Activity {
 
     private TextView building;
     private Button btn;

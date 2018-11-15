@@ -89,7 +89,8 @@ public class AROverlayView extends View {
             if (cameraCoordinateVector[2] < 0) {
                 float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
                 float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();
-                if(currentLocation.getLatitude()-arPoints.get(i).getLocation().getLatitude()<=0.0002) {
+                if(currentLocation.getLatitude()-arPoints.get(i).getLocation().getLatitude()<=0.0002 &&
+                        currentLocation.getLatitude() - arPoints.get(i).getLocation().getLatitude()>=0.0002) {
                     canvas.drawCircle(x, y, radius, paint);
                     canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
                     buildingNameList[z] = arPoints.get(i).getName();

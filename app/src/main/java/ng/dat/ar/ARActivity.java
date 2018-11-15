@@ -102,8 +102,10 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
                 try {
                     currentAPMacAddress = getMacId().toUpperCase();
 
-                    if(currentAPMacAddress.equals("00:07:89:46:08:11"))
-                        tvCurrentLocation.setText("카페베네");
+                    if(currentAPMacAddress.equals("B4:5D:50:6A:43:F2"))
+                        tvCurrentLocation.setText("알파실");
+                    else if(currentAPMacAddress.equals("0"))
+                        tvCurrentLocation.setText("없");
                 }catch(NullPointerException e){
                     Toast.makeText(getApplicationContext(),"와이파이를 연결해주세요.",Toast.LENGTH_SHORT).show();
                 }
@@ -154,11 +156,20 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
 
         detailLocation.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
-                Intent intent = new Intent(getApplicationContext(),ListActivity.class);
-                String[] str = arOverlayView.getBuildingNameList();
+                if(!isInside) {//실외 일때는 listactivity로 넘어감
+                    Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                    String[] str = arOverlayView.getBuildingNameList();
 
-                intent.putExtra("buildingNameList", str);
-                startActivity(intent);
+                    intent.putExtra("buildingNameList", str);
+                    startActivity(intent);
+                }
+                else {//실내일때는 바로 팝업 액티비티
+                    Intent intent = new Intent(getApplicationContext(), IndoorPopupActivity.class);
+                    /*****정보가 입력되있지않으면 위도 경도 값이므로 수정 필요****/
+                    String str = tvCurrentLocation.getText().toString();
+                    intent.putExtra("floorName", str);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -362,6 +373,6 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
 
             return connectionInfo.getBSSID();
         }
-        return null;
+        else return "0";
     }
 }
