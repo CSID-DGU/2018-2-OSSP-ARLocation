@@ -45,6 +45,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
     private SurfaceView surfaceView;
     private FrameLayout cameraContainerLayout;
     private AROverlayView arOverlayView;
+    private APView apView;
     private Camera camera;
     private ARCamera arCamera;
     private TextView tvCurrentLocation;
@@ -74,12 +75,12 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.rgb(0xED, 0x7D, 0x31)));
 
-
         sensorManager = (SensorManager) this.getSystemService(SENSOR_SERVICE);
         cameraContainerLayout = (FrameLayout) findViewById(R.id.camera_container_layout);
         surfaceView = (SurfaceView) findViewById(R.id.surface_view);
         tvCurrentLocation = (TextView) findViewById(R.id.tv_current_location);
         arOverlayView = new AROverlayView(this);
+        apView = new APView(this);
         indoorBtn = (Button) findViewById(R.id.indoor);
         outdoorBtn = (Button) findViewById(R.id.outdoor);
         reloadLocation = (Button)findViewById(R.id.reloadLocation);
@@ -101,11 +102,8 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
 
                 try {
                     currentAPMacAddress = getMacId().toUpperCase();
-
-                    if(currentAPMacAddress.equals("B4:5D:50:6A:43:F2"))
-                        tvCurrentLocation.setText("알파실");
-                    else if(currentAPMacAddress.equals("0"))
-                        tvCurrentLocation.setText("없");
+                    /**이부분 함수로 구현해야함**/
+                    tvCurrentLocation.setText(apView.searchingFloorName(currentAPMacAddress));
                 }catch(NullPointerException e){
                     Toast.makeText(getApplicationContext(),"와이파이를 연결해주세요.",Toast.LENGTH_SHORT).show();
                 }
@@ -147,8 +145,13 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
                 }
 
                 if(isInside){//실내일때 위치정보 다시 불러오기
-                    //TODO: implements this
-                    System.out.println("not implements!");
+                    try {
+                        currentAPMacAddress = getMacId().toUpperCase();
+                        /**이부분 함수로 구현해야함**/
+                        tvCurrentLocation.setText(apView.searchingFloorName(currentAPMacAddress));
+                    }catch(NullPointerException e){
+                        Toast.makeText(getApplicationContext(),"와이파이를 연결해주세요.",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -178,10 +181,14 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
     @Override
     public void onResume() {
         super.onResume();
-        requestLocationPermission();
-        requestCameraPermission();
-        registerSensors();
-        initAROverlayView();
+            requestLocationPermission();
+            requestCameraPermission();
+            registerSensors();
+            initAROverlayView();
+        if(isInside){
+            currentAPMacAddress = getMacId().toUpperCase();
+            tvCurrentLocation.setText(apView.searchingFloorName(currentAPMacAddress));
+        }
     }
 
     @Override
