@@ -31,9 +31,9 @@
         <activity android:name=".ARActivity" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".ListActivity" />
-        <activity android:name=".OutdoorPopupActivity"
+        <activity android:name=".OutDoorPopupActivity"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".IndoorPopupActivity"
+        <activity android:name=".InDoorPopupActivity"
             android:theme="@android:style/Theme.Dialog" />
 
     </application>

@@ -20,26 +20,16 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.opengl.Matrix;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.HashMap;
-
-import ng.dat.ar.Utils.DBInfo;
 
 public class ARActivity extends BaseActivity implements SensorEventListener, LocationListener {
 
@@ -169,7 +159,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
                     startActivity(intent);
                 }
                 else {//실내일때는 바로 팝업 액티비티
-                    Intent intent = new Intent(getApplicationContext(), IndoorPopupActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), InDoorPopupActivity.class);
                     /*****정보가 입력되있지않으면 위도 경도 값이므로 수정 필요****/
                     String str = tvCurrentLocation.getText().toString();
                     intent.putExtra("floorName", str);

@@ -7,7 +7,7 @@
     android:layout_margin="0dp"
     android:layout_width="320dp"
     android:layout_height="500dp"
-    tools:context=".IndoorPopupActivity">
+    tools:context=".InDoorPopupActivity">
 
 
     <TextView

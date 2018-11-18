@@ -8,7 +8,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class IndoorPopupActivity extends Activity {
+public class InDoorPopupActivity extends Activity {
     private TextView floor;
     private Button btn;
     private TextView r1;
