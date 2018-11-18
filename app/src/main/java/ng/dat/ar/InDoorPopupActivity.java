@@ -99,9 +99,6 @@ public class InDoorPopupActivity extends Activity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-            //tv_outPut.setText(s);
-
             try {
 
                 JSONArray array = new JSONObject(s).getJSONArray("information");

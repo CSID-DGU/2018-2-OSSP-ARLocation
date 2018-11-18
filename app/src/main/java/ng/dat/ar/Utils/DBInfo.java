@@ -21,19 +21,20 @@ public class DBInfo {
     public List<APPoint> apPoints;
     public String[] buildingNameList;
 
-    public DBInfo(Context context){
+    public DBInfo(Context context) {
         this.context = context;
 
         String outdoorurl = "http://52.78.123.18/oT.php";
         String indoorurl = "http://52.78.123.18/iT.php";
+
         // AsyncTask를 통해 HttpURLConnection 수행.
         OutDoorNetworkTask outDoornetworkTask = new OutDoorNetworkTask(outdoorurl, null);
         outDoornetworkTask.execute();
-        InDoorNetworkTask inDoorNetworkTask = new InDoorNetworkTask(indoorurl,null);
+        InDoorNetworkTask inDoorNetworkTask = new InDoorNetworkTask(indoorurl, null);
         inDoorNetworkTask.execute();
     }
 
-    public class OutDoorNetworkTask extends AsyncTask<Void, Void, String>{
+    public class OutDoorNetworkTask extends AsyncTask<Void, Void, String> {
 
         private String url;
         private ContentValues values;
@@ -58,44 +59,42 @@ public class DBInfo {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-            //tv_outPut.setText(s);
-
             arPoints = new ArrayList<ARPoint>();
 
             try {
-                String name=null;
-                double lat=0;
-                double lon=0;
-                double alt=0;
+                String name = null;
+                double lat = 0;
+                double lon = 0;
+                double alt = 0;
 
                 JSONArray array = new JSONObject(s).getJSONArray("BUILDING");
-                for(int i=0; i<array.length(); i++){
+                for (int i = 0; i < array.length(); i++) {
                     JSONObject jObject = array.getJSONObject(i);
 
                     name = jObject.optString("building_name");
                     lat = jObject.optDouble("building_latitude");
-                    lon=jObject.optDouble("building_longitude");
+                    lon = jObject.optDouble("building_longitude");
                     alt = jObject.optDouble("building_altitude");
 
-                    arPoints.add(new ARPoint(name,lat,lon,alt));
+                    arPoints.add(new ARPoint(name, lat, lon, alt));
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 e.printStackTrace();
             }
 
 
             buildingNameList = new String[arPoints.size()];
-            for(int i=0; i<arPoints.size();i++){
+            for (int i = 0; i < arPoints.size(); i++) {
                 buildingNameList[i] = null;
             }
 
         }
 
     }
+
     public class InDoorNetworkTask extends AsyncTask<Void, Void, String> {
 
         private String url;
@@ -121,18 +120,15 @@ public class DBInfo {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-            //tv_outPut.setText(s);
-
             apPoints = new ArrayList<APPoint>();
 
             try {
-                String macAddress=null;
-                String floorName=null;
+                String macAddress = null;
+                String floorName = null;
                 String content = null;
 
                 JSONArray array = new JSONObject(s).getJSONArray("INDOOR");
-                for(int i=0; i<array.length(); i++){
+                for (int i = 0; i < array.length(); i++) {
                     JSONObject jObject = array.getJSONObject(i);
 
                     macAddress = jObject.optString("indoor_macAddr");
@@ -140,11 +136,11 @@ public class DBInfo {
                     content = jObject.optString("indoor_content");
 
 
-                    apPoints.add(new APPoint(macAddress,floorName,content));
+                    apPoints.add(new APPoint(macAddress, floorName, content));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 e.printStackTrace();
             }
 

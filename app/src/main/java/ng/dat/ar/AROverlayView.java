@@ -36,8 +36,6 @@ public class AROverlayView extends View {
     private Location currentLocation;
     private DBInfo dbInfo;
 
-
-
     public AROverlayView(Context context, DBInfo dbInfo) {
         super(context);
         this.context = context;
@@ -49,7 +47,7 @@ public class AROverlayView extends View {
         this.invalidate();
     }
 
-    public void updateCurrentLocation(Location currentLocation){
+    public void updateCurrentLocation(Location currentLocation) {
         this.currentLocation = currentLocation;
         this.invalidate();
     }
@@ -69,8 +67,9 @@ public class AROverlayView extends View {
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
         paint.setTextSize(60);
 
-        int z=0;
+        int z = 0;
         try {
+
             for (int i = 0; i < dbInfo.arPoints.size(); i++) {
                 float[] currentLocationInECEF = LocationHelper.WSG84toECEF(currentLocation);
                 float[] pointInECEF = LocationHelper.WSG84toECEF(dbInfo.arPoints.get(i).getLocation());
@@ -95,12 +94,13 @@ public class AROverlayView extends View {
                     }
                 }
             }
-        }catch (NullPointerException e){
+
+        } catch (NullPointerException e) {
             dbInfo = new DBInfo(context);
         }
     }
 
-    public String[] getBuildingNameList(){
+    public String[] getBuildingNameList() {
         return dbInfo.buildingNameList;
     }
 }

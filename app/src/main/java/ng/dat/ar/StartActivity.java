@@ -74,12 +74,6 @@ public class StartActivity extends BaseActivity {
         });
         stop.start();
 
-
-
-
-
-
-
     }
     public void setInvisible(float alpha) {
         img.setAlpha(alpha);
