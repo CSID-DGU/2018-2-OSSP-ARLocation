@@ -11,6 +11,7 @@ import android.opengl.Matrix;
 import android.os.AsyncTask;
 import android.view.View;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,7 +25,9 @@ import ng.dat.ar.model.ARPoint;
 /**
  * Created by ntdat on 1/13/17.
  */
+/*TODO: php파일로 테이블을 json으로 출력할 때 jsonarray 형식으로 출력->for문 쓰지말고 json 메소드로 바꾸기
 
+ */
 public class AROverlayView extends View {
 
     Context context;
@@ -32,8 +35,6 @@ public class AROverlayView extends View {
     private Location currentLocation;
     private List<ARPoint> arPoints;
     private String[] buildingNameList;
-
-    private ARActivity ar;
 
 
     public AROverlayView(Context context) {
@@ -79,25 +80,47 @@ public class AROverlayView extends View {
 
             arPoints = new ArrayList<ARPoint>();
 
-                try {
-                    JSONObject json = new JSONObject(s);
-                    for(int i=1;i<=28;i++){
-                        String name="";
-                        double lat=0;
-                        double lon=0;
-                        double alt=0;
-                        if(json.getString("bid").equals(i)) {  //for문의 i
-                            name = json.getString("bname");
-                            lat = json.getDouble("latitude");
-                            lon = json.getDouble("longitude");
-                            alt = json.getDouble("altitude");
+                /*try {
+                    String name="";
+                    double lat=0;
+                    double lon=0;
+                    double alt=0;
 
-                            arPoints.add(new ARPoint(name, lat, lon, alt));
+                    JSONArray array = new JSONArray(s);
+                    JSONArray jsonArray = new JSONArray(array);
+                    if(jsonArray!=null){
+                        for(int i=0;i<jsonArray.length();i++){
+                            name= jsonArray.getJSONObject(i).getString("building_name");
+                            lat = jsonArray.getJSONObject(i).getDouble("building_latitude");
+                            lon = jsonArray.getJSONObject(i).getDouble("building_longtitude");
+                            alt = jsonArray.getJSONObject(i).getDouble("building_altitude");
+
+                            arPoints.add(new ARPoint(name,lat,lon,alt));
                         }
                     }
+
+                   for(int i=0;i<array.length();i++){
+                        JSONObject row = array.getJSONObject(i);
+                        name = row.getString("building_name");
+                        lat = row.getDouble("building_latitude");
+                        lon = row.getDouble("building_longtitude");
+                        alt = row.getDouble("building_altitude");
+
+                        System.out.println(name);
+                        System.out.println(lat);
+                        System.out.println(lon);
+                        System.out.println(alt);
+
+                        arPoints.add(new ARPoint(name, lat, lon, alt));
+
+                   }
+                    //arPoints.add(new ARPoint("동양파라빌", 37.5740069, 127.0205818, 92));
+
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }*/
+
+
 
             /*Demo points
             arPoints = new ArrayList<ARPoint>() {{
@@ -158,8 +181,8 @@ public class AROverlayView extends View {
             if (cameraCoordinateVector[2] < 0) {
                 float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
                 float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();
-                if(currentLocation.getLatitude()-arPoints.get(i).getLocation().getLatitude()<=0.0002 &&
-                        currentLocation.getLatitude() - arPoints.get(i).getLocation().getLatitude()>=0.0002) {
+                if(currentLocation.getLatitude()-arPoints.get(i).getLocation().getLatitude()<=0.02 &&
+                        currentLocation.getLatitude() - arPoints.get(i).getLocation().getLatitude()>=-0.02) {
                     canvas.drawCircle(x, y, radius, paint);
                     canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
                     buildingNameList[z] = arPoints.get(i).getName();

@@ -20,24 +20,16 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.opengl.Matrix;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.HashMap;
 
 public class ARActivity extends BaseActivity implements SensorEventListener, LocationListener {
 
@@ -63,7 +55,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
     private Button indoorBtn;
     private Button outdoorBtn;
     private String currentAPMacAddress;
-    public boolean isInside;
+    private boolean isInside;
     boolean isGPSEnabled;
     boolean isNetworkEnabled;
     boolean locationServiceAvailable;

@@ -1,11 +1,12 @@
 package ng.dat.ar;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -16,7 +17,7 @@ import org.json.JSONObject;
 
 import ng.dat.ar.Utils.ReqeustHttpURLConnection;
 
-public class OutdoorPopupActivity extends AppCompatActivity {
+public class PopupActivity extends Activity {
 
     private TextView building;
     private Button btn;
@@ -31,7 +32,7 @@ public class OutdoorPopupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //타이틀바 없애기
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_outdoor_popup);
+        setContentView(R.layout.activity_popup);
 
         Intent intent =getIntent();
         String buildingName = intent.getStringExtra("buildingName");
