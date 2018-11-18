@@ -3,6 +3,7 @@ package ng.dat.ar;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,8 @@ public class InDoorPopupActivity extends Activity {
     private Button btn;
     private TextView r1;
     private TextView r2;
+    private TextView r3;
+    private TextView r4;
     private TextView r;
     private String url_mac;
 
@@ -40,6 +43,8 @@ public class InDoorPopupActivity extends Activity {
         btn = (Button)findViewById(R.id.closebtn);
         r1= (TextView)findViewById(R.id.resulttext1);
         r2= (TextView)findViewById(R.id.resulttext2);
+        r3= (TextView)findViewById(R.id.resulttext3);
+        r4= (TextView)findViewById(R.id.resulttext4);
         r= (TextView)findViewById(R.id.result);
 
         floor.setText(floorName);
@@ -52,6 +57,14 @@ public class InDoorPopupActivity extends Activity {
         // AsyncTask를 통해 HttpURLConnection 수행.
         NetworkTask networkTask = new NetworkTask(url, null);
         networkTask.execute();
+
+        floor.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
+        btn.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
+        r1.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
+        r2.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
+        r3.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
+        r4.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
+        r.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
 
         btn.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){

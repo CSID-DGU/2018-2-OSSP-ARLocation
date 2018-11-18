@@ -25,7 +25,7 @@ public class DBInfo {
         this.context = context;
 
         String outdoorurl = "http://52.78.123.18/oT.php";
-        String indoorurl = "ttp://52.78.123.18/iT.php";
+        String indoorurl = "http://52.78.123.18/iT.php";
         // AsyncTask를 통해 HttpURLConnection 수행.
         OutDoorNetworkTask outDoornetworkTask = new OutDoorNetworkTask(outdoorurl, null);
         outDoornetworkTask.execute();
@@ -33,7 +33,7 @@ public class DBInfo {
         inDoorNetworkTask.execute();
     }
 
-    public class OutDoorNetworkTask extends AsyncTask<Void, Void, String> {
+    public class OutDoorNetworkTask extends AsyncTask<Void, Void, String>{
 
         private String url;
         private ContentValues values;
@@ -83,6 +83,8 @@ public class DBInfo {
 
             } catch (JSONException e) {
                 e.printStackTrace();
+            } catch (NullPointerException e){
+                e.printStackTrace();
             }
 
 
@@ -122,7 +124,7 @@ public class DBInfo {
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
             //tv_outPut.setText(s);
 
-            arPoints = new ArrayList<ARPoint>();
+            apPoints = new ArrayList<APPoint>();
 
             try {
                 String macAddress=null;
@@ -142,11 +144,8 @@ public class DBInfo {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
-
-            buildingNameList = new String[arPoints.size()];
-            for(int i=0; i<arPoints.size();i++){
-                buildingNameList[i] = null;
+            } catch (NullPointerException e){
+                e.printStackTrace();
             }
 
         }

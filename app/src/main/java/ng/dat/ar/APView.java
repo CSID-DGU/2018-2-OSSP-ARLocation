@@ -14,7 +14,7 @@ public class APView {
     private DBInfo dbInfo;
     public APView(Context context, DBInfo dbInfo){
         this.context = context;
-        this.dbInfo=dbInfo;
+        this.dbInfo = dbInfo;
     }
 
     public String searchingFloorName(String currentAPMacAddress){

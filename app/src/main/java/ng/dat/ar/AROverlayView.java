@@ -41,7 +41,7 @@ public class AROverlayView extends View {
     public AROverlayView(Context context, DBInfo dbInfo) {
         super(context);
         this.context = context;
-        this.dbInfo = new DBInfo(context);
+        this.dbInfo = dbInfo;
     }
 
     public void updateRotatedProjectionMatrix(float[] rotatedProjectionMatrix) {
@@ -70,29 +70,33 @@ public class AROverlayView extends View {
         paint.setTextSize(60);
 
         int z=0;
-        for (int i = 0; i < dbInfo.arPoints.size(); i ++) {
-            float[] currentLocationInECEF = LocationHelper.WSG84toECEF(currentLocation);
-            float[] pointInECEF = LocationHelper.WSG84toECEF(dbInfo.arPoints.get(i).getLocation());
-            float[] pointInENU = LocationHelper.ECEFtoENU(currentLocation, currentLocationInECEF, pointInECEF);
+        try {
+            for (int i = 0; i < dbInfo.arPoints.size(); i++) {
+                float[] currentLocationInECEF = LocationHelper.WSG84toECEF(currentLocation);
+                float[] pointInECEF = LocationHelper.WSG84toECEF(dbInfo.arPoints.get(i).getLocation());
+                float[] pointInENU = LocationHelper.ECEFtoENU(currentLocation, currentLocationInECEF, pointInECEF);
 
-            float[] cameraCoordinateVector = new float[4];
-            Matrix.multiplyMV(cameraCoordinateVector, 0, rotatedProjectionMatrix, 0, pointInENU, 0);
+                float[] cameraCoordinateVector = new float[4];
+                Matrix.multiplyMV(cameraCoordinateVector, 0, rotatedProjectionMatrix, 0, pointInENU, 0);
 
-            // cameraCoordinateVector[2] is z, that always less than 0 to display on right position
-            // if z > 0, the point will display on the opposite
-            if (cameraCoordinateVector[2] < 0) {
-                float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
-                float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();
-                if((currentLocation.getLatitude()-dbInfo.arPoints.get(i).getLocation().getLatitude()<=0.0005 &&
-                        currentLocation.getLatitude()-dbInfo.arPoints.get(i).getLocation().getLatitude()>=-0.0005) ||
-                        (currentLocation.getLongitude() - dbInfo.arPoints.get(i).getLocation().getLongitude() <= 0.0005 &&
-                        currentLocation.getLongitude() - dbInfo.arPoints.get(i).getLocation().getLongitude() >= -0.0005)) {
+                // cameraCoordinateVector[2] is z, that always less than 0 to display on right position
+                // if z > 0, the point will display on the opposite
+                if (cameraCoordinateVector[2] < 0) {
+                    float x = (0.5f + cameraCoordinateVector[0] / cameraCoordinateVector[3]) * canvas.getWidth();
+                    float y = (0.5f - cameraCoordinateVector[1] / cameraCoordinateVector[3]) * canvas.getHeight();
+                    if ((currentLocation.getLatitude() - dbInfo.arPoints.get(i).getLocation().getLatitude() <= 0.0005 &&
+                            currentLocation.getLatitude() - dbInfo.arPoints.get(i).getLocation().getLatitude() >= -0.0005) ||
+                            (currentLocation.getLongitude() - dbInfo.arPoints.get(i).getLocation().getLongitude() <= 0.0005 &&
+                                    currentLocation.getLongitude() - dbInfo.arPoints.get(i).getLocation().getLongitude() >= -0.0005)) {
                         canvas.drawCircle(x, y, radius, paint);
                         canvas.drawText(dbInfo.arPoints.get(i).getName(), x - (30 * dbInfo.arPoints.get(i).getName().length() / 2), y - 80, paint);
                         dbInfo.buildingNameList[z] = dbInfo.arPoints.get(i).getName();
                         z++;
+                    }
                 }
             }
+        }catch (NullPointerException e){
+            dbInfo = new DBInfo(context);
         }
     }
 

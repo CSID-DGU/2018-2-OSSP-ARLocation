@@ -74,9 +74,9 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
         cameraContainerLayout = (FrameLayout) findViewById(R.id.camera_container_layout);
         surfaceView = (SurfaceView) findViewById(R.id.surface_view);
         tvCurrentLocation = (TextView) findViewById(R.id.tv_current_location);
+        dbInfo = new DBInfo(this);
         arOverlayView = new AROverlayView(this,dbInfo);
         apView = new APView(this, dbInfo);
-        dbInfo = new DBInfo(this);
         indoorBtn = (Button) findViewById(R.id.indoor);
         outdoorBtn = (Button) findViewById(R.id.outdoor);
         reloadLocation = (Button)findViewById(R.id.reloadLocation);
@@ -340,7 +340,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
     }
 
     private void updateLatestLocation() {
-        if (arOverlayView !=null && location != null) {
+        if (arOverlayView !=null && location != null && !isInside) {
             arOverlayView.updateCurrentLocation(location);
             tvCurrentLocation.setText(String.format("lat: %s \nlon: %s \naltitude: %s \n",
                     location.getLatitude(), location.getLongitude(), location.getAltitude()));
