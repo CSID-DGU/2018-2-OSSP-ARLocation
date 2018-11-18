@@ -133,10 +133,12 @@ public class DBInfo {
                 for(int i=0; i<array.length(); i++){
                     JSONObject jObject = array.getJSONObject(i);
 
-                    macAddress = jObject.optString("mac_address");
+                    macAddress = jObject.optString("indoor_macAddr");
+                    floorName = jObject.optString("indoor_floor");
+                    content = jObject.optString("indoor_content");
 
 
-                    //apPoints.add(new ARPoint(name,lat,lon,alt));
+                    apPoints.add(new APPoint(macAddress,floorName,content));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

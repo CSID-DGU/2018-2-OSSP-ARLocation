@@ -38,10 +38,10 @@ public class AROverlayView extends View {
 
 
 
-    public AROverlayView(Context context) {
+    public AROverlayView(Context context, DBInfo dbInfo) {
         super(context);
         this.context = context;
-        dbInfo = new DBInfo(context);
+        this.dbInfo = new DBInfo(context);
     }
 
     public void updateRotatedProjectionMatrix(float[] rotatedProjectionMatrix) {

@@ -31,6 +31,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ng.dat.ar.Utils.DBInfo;
+
 public class ARActivity extends BaseActivity implements SensorEventListener, LocationListener {
 
     final static String TAG = "ARActivity";
@@ -38,6 +40,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
     private FrameLayout cameraContainerLayout;
     private AROverlayView arOverlayView;
     private APView apView;
+    private DBInfo dbInfo;
     private Camera camera;
     private ARCamera arCamera;
     private TextView tvCurrentLocation;
@@ -71,8 +74,9 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
         cameraContainerLayout = (FrameLayout) findViewById(R.id.camera_container_layout);
         surfaceView = (SurfaceView) findViewById(R.id.surface_view);
         tvCurrentLocation = (TextView) findViewById(R.id.tv_current_location);
-        arOverlayView = new AROverlayView(this);
-        apView = new APView(this);
+        arOverlayView = new AROverlayView(this,dbInfo);
+        apView = new APView(this, dbInfo);
+        dbInfo = new DBInfo(this);
         indoorBtn = (Button) findViewById(R.id.indoor);
         outdoorBtn = (Button) findViewById(R.id.outdoor);
         reloadLocation = (Button)findViewById(R.id.reloadLocation);
