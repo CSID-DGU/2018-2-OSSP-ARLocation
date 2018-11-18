@@ -11,10 +11,12 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import ng.dat.ar.Utils.ReqeustHttpURLConnection;
+import ng.dat.ar.model.ARPoint;
 
 public class OutDoorPopupActivity extends Activity {
 
@@ -98,9 +100,13 @@ public class OutDoorPopupActivity extends Activity {
             //tv_outPut.setText(s);
 
             try {
-                JSONObject json = new JSONObject(s);
-                if(json.getString("bname").equals(url_bname))
-                    r.setText(json.getString("content"));
+
+                JSONArray array = new JSONObject(s).getJSONArray("information");
+                    JSONObject jObject = array.getJSONObject(0);
+
+                    if(jObject.getString("building_name").equals(url_bname))
+                        r.setText(jObject.getString("building_content"));
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

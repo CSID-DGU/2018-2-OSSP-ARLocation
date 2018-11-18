@@ -12,11 +12,10 @@
 
     <TextView
         android:id="@+id/resulttext1"
-        android:layout_width="202dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="64dp"
         android:layout_marginTop="57dp"
         android:gravity="center"
         android:text="현재 보이는 건물은"
@@ -37,11 +36,10 @@
 
     <TextView
         android:id="@+id/resulttext2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/resulttext1"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="131dp"
         android:layout_marginTop="83dp"
         android:gravity="center"
         android:text="입니다."
@@ -50,11 +48,10 @@
 
     <TextView
         android:id="@+id/result"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/resulttext1"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="149dp"
         android:layout_marginTop="196dp"
         android:layout_marginBottom="50dp"
         android:gravity="center"
