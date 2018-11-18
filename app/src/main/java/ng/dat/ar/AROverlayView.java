@@ -35,12 +35,11 @@ public class AROverlayView extends View {
 
         //Demo points
         arPoints = new ArrayList<ARPoint>() {{
-            add(new ARPoint("정보문화관", 37.5595638,126.9963624,0));
-            add(new ARPoint("학군단1", 37.558605, 126.998672, 92));
-            add(new ARPoint("학군단2", 37.558594, 126.998749, 92));
-            add(new ARPoint("학군단3", 37.558746, 126.998795, 92));
-            add(new ARPoint("학군단4", 37.558765, 126.998741, 92 ));
-            add(new ARPoint("동양파라빌", 37.5740069, 127.0205818, 92));
+            add(new ARPoint("정보문화관P", 37.5595638,126.9963624,65.5));
+            add(new ARPoint("팔정도", 37.55823,127.00016,86.4  ));
+            add(new ARPoint("본관",37.55851,126.99951,79.8));
+            add(new ARPoint("명진관",37.55767,126.99994,89.1));
+            add(new ARPoint("신공학관",37.55815, 126.99845, 67.4));
             add(new ARPoint("원흥별관", 37.55865, 126.99872, 69.2));
         }};
 
@@ -89,12 +88,14 @@ public class AROverlayView extends View {
             if (cameraCoordinateVector[2] < 0) {
                 float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
                 float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();
-                if(currentLocation.getLatitude()-arPoints.get(i).getLocation().getLatitude()<=0.0002 &&
-                        currentLocation.getLatitude() - arPoints.get(i).getLocation().getLatitude()>=0.0002) {
-                    canvas.drawCircle(x, y, radius, paint);
-                    canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
-                    buildingNameList[z] = arPoints.get(i).getName();
-                    z++;
+                if((currentLocation.getLatitude()-arPoints.get(i).getLocation().getLatitude()<=0.0005 &&
+                        currentLocation.getLatitude()-arPoints.get(i).getLocation().getLatitude()>=-0.0005) ||
+                        (currentLocation.getLongitude() - arPoints.get(i).getLocation().getLongitude() <= 0.0005 &&
+                        currentLocation.getLongitude() - arPoints.get(i).getLocation().getLongitude() >= -0.0005)) {
+                        canvas.drawCircle(x, y, radius, paint);
+                        canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
+                        buildingNameList[z] = arPoints.get(i).getName();
+                        z++;
                 }
             }
         }

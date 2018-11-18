@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -32,7 +31,7 @@ public class OutDoorPopupActivity extends Activity {
         super.onCreate(savedInstanceState);
         //타이틀바 없애기
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_popup);
+        setContentView(R.layout.activity_outdoor_popup);
 
         Intent intent =getIntent();
         String buildingName = intent.getStringExtra("buildingName");
