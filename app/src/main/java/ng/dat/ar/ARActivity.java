@@ -39,6 +39,8 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
+import ng.dat.ar.Utils.DBInfo;
+
 public class ARActivity extends BaseActivity implements SensorEventListener, LocationListener {
 
     final static String TAG = "ARActivity";
