@@ -100,7 +100,6 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
                     Toast.makeText(getApplicationContext(),"와이파이를 연결해주세요.",Toast.LENGTH_SHORT).show();
                 }
 
-
             }
         });
 
