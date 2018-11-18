@@ -1,6 +1,5 @@
-package ng.dat.ar;
+package ym.jw.yi;
 
-import android.app.Activity;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

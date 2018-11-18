@@ -1,6 +1,5 @@
-package ng.dat.ar;
+package ym.jw.yi;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,20 +7,10 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.opengl.Matrix;
-import android.os.AsyncTask;
 import android.view.View;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import ng.dat.ar.Utils.DBInfo;
-import ng.dat.ar.Utils.ReqeustHttpURLConnection;
-import ng.dat.ar.helper.LocationHelper;
-import ng.dat.ar.model.ARPoint;
+import ym.jw.yi.Utils.DBInfo;
+import ym.jw.yi.helper.LocationHelper;
 
 /**
  * Created by ntdat on 1/13/17.

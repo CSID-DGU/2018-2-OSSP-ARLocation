@@ -1,4 +1,4 @@
-package ng.dat.ar;
+package ym.jw.yi;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -15,8 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ng.dat.ar.Utils.ReqeustHttpURLConnection;
-import ng.dat.ar.model.ARPoint;
+import ym.jw.yi.Utils.ReqeustHttpURLConnection;
 
 public class OutDoorPopupActivity extends Activity {
 

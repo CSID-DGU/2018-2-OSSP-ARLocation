@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ng.dat.ar">
+    package="ym.jw.yi">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".StartActivity"
+            android:name="ym.jw.yi.StartActivity"
             android:theme="@style/startTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,12 +28,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ARActivity" />
-        <activity android:name=".BaseActivity" />
-        <activity android:name=".ListActivity" />
-        <activity android:name=".OutDoorPopupActivity"
+        <activity android:name="ym.jw.yi.ARActivity" />
+        <activity android:name="ym.jw.yi.BaseActivity" />
+        <activity android:name="ym.jw.yi.ListActivity" />
+        <activity android:name="ym.jw.yi.OutDoorPopupActivity"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".InDoorPopupActivity"
+        <activity android:name="ym.jw.yi.InDoorPopupActivity"
             android:theme="@android:style/Theme.Dialog" />
 
     </application>

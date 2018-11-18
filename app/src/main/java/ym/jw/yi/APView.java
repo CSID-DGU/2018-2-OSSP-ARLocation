@@ -1,12 +1,11 @@
-package ng.dat.ar;
+package ym.jw.yi;
 
 import android.content.Context;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ng.dat.ar.Utils.DBInfo;
-import ng.dat.ar.model.APPoint;
+import ym.jw.yi.Utils.DBInfo;
+import ym.jw.yi.model.APPoint;
 
 public class APView {
     private Context context;

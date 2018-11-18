@@ -4,7 +4,7 @@
     android:id="@+id/activity_ar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ng.dat.ar.ARActivity">
+    tools:context="ym.jw.yi.ARActivity">
 
     <FrameLayout
         android:id="@+id/camera_container_layout"

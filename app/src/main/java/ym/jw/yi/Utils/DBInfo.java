@@ -1,4 +1,4 @@
-package ng.dat.ar.Utils;
+package ym.jw.yi.Utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,8 +11,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import ng.dat.ar.model.APPoint;
-import ng.dat.ar.model.ARPoint;
+import ym.jw.yi.model.APPoint;
+import ym.jw.yi.model.ARPoint;
 
 
 public class DBInfo {

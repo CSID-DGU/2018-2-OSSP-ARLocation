@@ -1,4 +1,4 @@
-package ng.dat.ar;
+package ym.jw.yi;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -15,7 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ng.dat.ar.Utils.ReqeustHttpURLConnection;
+import ym.jw.yi.Utils.ReqeustHttpURLConnection;
 
 public class InDoorPopupActivity extends Activity {
     private TextView floor;

@@ -1,4 +1,4 @@
-package ng.dat.ar;
+package ym.jw.yi;
 
 import android.Manifest;
 import android.content.Context;
@@ -31,7 +31,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ng.dat.ar.Utils.DBInfo;
+import ym.jw.yi.Utils.DBInfo;
 
 public class ARActivity extends BaseActivity implements SensorEventListener, LocationListener {
 

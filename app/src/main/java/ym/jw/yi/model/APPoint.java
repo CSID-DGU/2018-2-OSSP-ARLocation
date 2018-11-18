@@ -1,4 +1,4 @@
-package ng.dat.ar.model;
+package ym.jw.yi.model;
 
 public class APPoint {
     private String macAddress;
