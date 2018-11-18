@@ -36,10 +36,6 @@
         <activity android:name=".IndoorPopupActivity"
             android:theme="@android:style/Theme.Dialog" />
 
-        <activity android:name=".PPopupActivity" />
-        <activity
-            android:name=".PopupActivity"
-            android:theme="@android:style/Theme.Dialog" />
     </application>
 
 </manifest>
