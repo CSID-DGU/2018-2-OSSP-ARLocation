@@ -29,12 +29,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".ARActivity" />
-        <activity
-            android:name=".OutDoorPopupActivity"
-            android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".ListActivity" />
-        <activity android:name=".IndoorPopupActivity"/>
+        <activity android:name=".OutdoorPopupActivity"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".IndoorPopupActivity"
+            android:theme="@android:style/Theme.Dialog" />
+
     </application>
 
 </manifest>

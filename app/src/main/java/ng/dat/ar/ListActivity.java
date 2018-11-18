@@ -34,7 +34,7 @@ public class ListActivity extends AppCompatActivity {
 
             btn[i].setOnClickListener(new Button.OnClickListener(){
                 public void onClick(View v){
-                    Intent intent = new Intent(getApplicationContext(),OutDoorPopupActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), OutdoorPopupActivity.class);
                     //건물이름 받아와야함
                     intent.putExtra("buildingName", temp);
                     startActivity(intent);
