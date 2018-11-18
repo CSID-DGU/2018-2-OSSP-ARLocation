@@ -163,6 +163,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
                     /*****정보가 입력되있지않으면 위도 경도 값이므로 수정 필요****/
                     String str = tvCurrentLocation.getText().toString();
                     intent.putExtra("floorName", str);
+                    intent.putExtra("macAddress", currentAPMacAddress);
                     startActivity(intent);
                 }
             }

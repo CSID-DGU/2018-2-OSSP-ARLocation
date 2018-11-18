@@ -25,7 +25,7 @@ public class InDoorPopupActivity extends Activity {
 
         Intent intent =getIntent();
         String floorName = intent.getStringExtra("floorName");
-
+        String macAddress = intent.getStringExtra("macAddress");
         //UI 객체생성
         floor = (TextView)findViewById(R.id.floorname);
         btn = (Button)findViewById(R.id.closebtn);
