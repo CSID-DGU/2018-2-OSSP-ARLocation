@@ -1,9 +1,9 @@
 # ARLocation
 
 ## Members
-1. Name : Kim Yeong Mi(2016112168), Git ID : 0meeee
-2. Name : Kim ji woon(2016112162), Git ID : Kimjiwoon
-3. Name : Wone ye in(2016112176), Git ID : dpdls812
+- Name : Wone ye in(2016112176), Git ID : dpdls812 : Team Leader
+- Name : Kim Yeong Mi(2016112168), Git ID : 0meeee
+- Name : Kim ji woon(2016112162), Git ID : Kimjiwoon
 
 ## Contents
 ### 1. Outdoor location information recognition using GPS
