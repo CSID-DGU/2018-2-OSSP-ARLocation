@@ -17,5 +17,8 @@
 ## Results
 
 ## OpenSource
+1. https://github.com/CSID-DGU/2018-1-OSSP-BossamJo-2-3
+2. https://github.com/dat-ng/ar-location-based-android
 
 ## License
+- GPL License
