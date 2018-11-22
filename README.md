@@ -21,4 +21,4 @@
 2. https://github.com/dat-ng/ar-location-based-android
 
 ## License
-- GPL License
+- GPL License: The GPL is a copyleft license, which means that derivative work can only be distributed under the same license terms.
