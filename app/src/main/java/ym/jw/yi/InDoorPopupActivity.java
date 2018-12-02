@@ -1,15 +1,25 @@
 package ym.jw.yi;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.speech.tts.TextToSpeech;
+import android.telephony.SmsMessage;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,11 +36,22 @@ public class InDoorPopupActivity extends Activity {
     private TextView r4;
     private TextView r;
     private String url_mac;
+    private String speak_string;
+
+    private final int CHECK_CODE = 0x1;
+
+    private Speaker speaker;
+
+    private ToggleButton toggle;
+    private CompoundButton.OnCheckedChangeListener toggleListener;
+
+    private BroadcastReceiver smsReceiver;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //타이틀바 없애기
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_indoor_popup);
@@ -66,12 +87,35 @@ public class InDoorPopupActivity extends Activity {
         r4.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
         r.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
 
+        speak_string=r1.getText().toString()+floor.getText().toString()+r2.getText().toString()+
+                r3.getText().toString()+r.getText().toString()+r4.getText().toString();
+
+        toggle = (ToggleButton)findViewById(R.id.speak);
+
+        toggleListener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton view, boolean isChecked) {
+                if(isChecked){
+                    speaker.allow(true);
+                    speaker.speak(speak_string);
+                    toggle.setBackgroundDrawable(getResources().getDrawable(R.drawable.speaker));
+                }else{
+                    speaker.allow(false);
+                    toggle.setBackgroundDrawable(getResources().getDrawable(R.drawable.speaker_off));
+                }
+            }
+        };
+        toggle.setOnCheckedChangeListener(toggleListener);
+
+        checkTTS();
+        initializeSMSReceiver();
+        registerSMSReceiver();
+
         btn.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
                 finish();
             }
         });
-
     }
 
     public class NetworkTask extends AsyncTask<Void, Void, String> {
@@ -113,6 +157,69 @@ public class InDoorPopupActivity extends Activity {
             }
 
         }
+    }
+
+    private void checkTTS(){
+        Intent check = new Intent();
+        check.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(check, CHECK_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == CHECK_CODE){
+            if(resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS){
+                speaker = new Speaker(this);
+            }else {
+                Intent install = new Intent();
+                install.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                startActivity(install);
+            }
+        }
+    }
+
+    private void initializeSMSReceiver(){
+        smsReceiver = new BroadcastReceiver(){
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                Bundle bundle = intent.getExtras();
+                if(bundle!=null){
+                    Object[] pdus = (Object[])bundle.get("pdus");
+                    for(int i=0;i<pdus.length;i++){
+                        byte[] pdu = (byte[])pdus[i];
+                        SmsMessage message = SmsMessage.createFromPdu(pdu);
+                        String text = message.getDisplayMessageBody();
+                        String sender = getContactName(message.getOriginatingAddress());
+                        speaker.speak(text);
+                    }
+                }
+
+            }
+        };
+    }
+
+    private void registerSMSReceiver() {
+        IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+        registerReceiver(smsReceiver, intentFilter);
+    }
+
+    private String getContactName(String phone){
+        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phone));
+        String projection[] = new String[]{ContactsContract.Data.DISPLAY_NAME};
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if(cursor.moveToFirst()){
+            return cursor.getString(0);
+        }else {
+            return "unknown number";
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(smsReceiver);
+        speaker.destroy();
     }
 
 }
