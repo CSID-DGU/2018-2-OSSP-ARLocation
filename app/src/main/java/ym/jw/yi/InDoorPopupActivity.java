@@ -87,14 +87,16 @@ public class InDoorPopupActivity extends Activity {
         r4.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
         r.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
 
-        speak_string=r1.getText().toString()+floor.getText().toString()+r2.getText().toString()+
-                r3.getText().toString()+r.getText().toString()+r4.getText().toString();
 
         toggle = (ToggleButton)findViewById(R.id.speak);
 
         toggleListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton view, boolean isChecked) {
+
+                speak_string=r1.getText().toString()+floor.getText().toString()+r2.getText().toString()+
+                        r3.getText().toString()+r.getText().toString()+r4.getText().toString();
+
                 if(isChecked){
                     speaker.allow(true);
                     speaker.speak(speak_string);
