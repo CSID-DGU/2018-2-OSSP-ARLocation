@@ -1,9 +1,12 @@
 package ym.jw.yi;
 
 import android.Manifest;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
@@ -20,9 +23,19 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.opengl.Matrix;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.view.ActionMode;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +72,13 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
     private Button outdoorBtn;
     private String currentAPMacAddress;
     public boolean isInside;
+
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+    }
+
     boolean isGPSEnabled;
     boolean isNetworkEnabled;
     boolean locationServiceAvailable;
@@ -346,10 +366,46 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
                     location.getLatitude(), location.getLongitude(), location.getAltitude()));
         }
     }
+    private String getMacId() { //ap address를 불러옵니다.
+        ConnectivityManager connManager=(ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if(networkInfo.isConnected()){
+            final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            final WifiInfo connectionInfo=wifiManager.getConnectionInfo();
+
+            return connectionInfo.getBSSID();
+        }
+        else return "0";
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
 
     @Override
     public void onLocationChanged(Location location) {
         updateLatestLocation();
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return super.isDestroyed();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+    }
+
+    @Override
+    public void onAttachFragment(android.support.v4.app.Fragment fragment) {
+        super.onAttachFragment(fragment);
     }
 
     @Override
@@ -366,16 +422,148 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
     public void onProviderDisabled(String s) {
 
     }
-
-    private String getMacId() { //ap address를 불러옵니다.
-        ConnectivityManager connManager=(ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if(networkInfo.isConnected()){
-            final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            final WifiInfo connectionInfo=wifiManager.getConnectionInfo();
-
-            return connectionInfo.getBSSID();
-        }
-        else return "0";
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void addContentView(View view, ViewGroup.LayoutParams params) {
+        super.addContentView(view, params);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @NonNull
+    @Override
+    public AppCompatDelegate getDelegate() {
+        return super.getDelegate();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public Resources getResources() {
+        return super.getResources();
+    }
+
+    @Override
+    public void onPanelClosed(int featureId, Menu menu) {
+        super.onPanelClosed(featureId, menu);
+    }
+
+    @Override
+    public void onCreateSupportNavigateUpTaskStack(@NonNull TaskStackBuilder builder) {
+        super.onCreateSupportNavigateUpTaskStack(builder);
+    }
+
+    @Nullable
+    @Override
+    public ActionMode startSupportActionMode(@NonNull ActionMode.Callback callback) {
+        return super.startSupportActionMode(callback);
+    }
+
+    @Nullable
+    @Override
+    public ActionMode onWindowStartingSupportActionMode(@NonNull ActionMode.Callback callback) {
+        return super.onWindowStartingSupportActionMode(callback);
+    }
+
+    @Override
+    public void onSupportActionModeFinished(@NonNull ActionMode mode) {
+        super.onSupportActionModeFinished(mode);
+    }
+
+    @Override
+    public void onSupportActionModeStarted(@NonNull ActionMode mode) {
+        super.onSupportActionModeStarted(mode);
+    }
+
+    @Override
+    public void invalidateOptionsMenu() {
+        super.invalidateOptionsMenu();
+    }
+
+    @Override
+    public void supportInvalidateOptionsMenu() {
+        super.supportInvalidateOptionsMenu();
+    }
+
+    @Override
+    public <T extends View> T findViewById(int id) {
+        return super.findViewById(id);
+    }
+
+    @Override
+    public boolean supportRequestWindowFeature(int featureId) {
+        return super.supportRequestWindowFeature(featureId);
+    }
+
+    @Override
+    protected void onTitleChanged(CharSequence title, int color) {
+        super.onTitleChanged(title, color);
+    }
+
+    @Override
+    public void onContentChanged() {
+        super.onContentChanged();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        super.setContentView(view, params);
+    }
+
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+    }
+
+    @Override
+    public MenuInflater getMenuInflater() {
+        return super.getMenuInflater();
+    }
+
+    @Override
+    public void setSupportActionBar(@Nullable Toolbar toolbar) {
+        super.setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public ActionBar getSupportActionBar() {
+        return super.getSupportActionBar();
+    }
+
+    @Override
+    public void setTheme(int resid) {
+        super.setTheme(resid);
+    }
+
+
 }

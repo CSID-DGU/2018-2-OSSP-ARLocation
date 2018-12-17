@@ -6,7 +6,9 @@ import android.content.Context;
 import android.hardware.Camera;
 import android.opengl.Matrix;
 import android.os.Build;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -74,6 +76,41 @@ public class ARCamera extends ViewGroup implements SurfaceHolder.Callback {
         if (supportedPreviewSizes != null) {
             previewSize = getOptimalPreviewSize(supportedPreviewSizes, width, height);
         }
+    }
+
+    @Override
+    protected LayoutParams generateLayoutParams(LayoutParams p) {
+        return super.generateLayoutParams(p);
+    }
+
+    @Override
+    protected boolean checkLayoutParams(LayoutParams p) {
+        return super.checkLayoutParams(p);
+    }
+
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return super.generateLayoutParams(attrs);
+    }
+
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        return super.generateDefaultLayoutParams();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    public CharSequence getAccessibilityClassName() {
+        return super.getAccessibilityClassName();
     }
 
     @Override
