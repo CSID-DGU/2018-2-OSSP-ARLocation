@@ -41,7 +41,6 @@ public class InDoorPopupActivity extends Activity {
     private TextView r1;
     private TextView r2;
     private TextView r3;
-    private TextView r4;
     private TextView r;
     private String url_mac;
     private String speak_string;
@@ -74,7 +73,6 @@ public class InDoorPopupActivity extends Activity {
         r1= (TextView)findViewById(R.id.resulttext1);
         r2= (TextView)findViewById(R.id.resulttext2);
         r3= (TextView)findViewById(R.id.resulttext3);
-        r4= (TextView)findViewById(R.id.resulttext4);
         r= (TextView)findViewById(R.id.result);
 
         floor.setText(floorName);
@@ -93,7 +91,6 @@ public class InDoorPopupActivity extends Activity {
         r1.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
         r2.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
         r3.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
-        r4.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
         r.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
 
 
@@ -103,8 +100,8 @@ public class InDoorPopupActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton view, boolean isChecked) {
 
-                speak_string=r1.getText().toString()+floor.getText().toString()+r2.getText().toString()+
-                        r3.getText().toString()+r.getText().toString()+r4.getText().toString();
+                speak_string=r1.getText().toString()+" "+floor.getText().toString()+" "+r2.getText().toString()+" "+
+                        r3.getText().toString()+" "+r.getText().toString();
 
                 if(isChecked){
                     speaker.allow(true);

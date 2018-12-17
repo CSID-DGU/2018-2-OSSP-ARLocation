@@ -72,20 +72,6 @@
         android:textColor="#000000"
         android:textSize="18dp" />
 
-    <TextView
-        android:id="@+id/resulttext4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/resulttext2"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="189dp"
-        android:layout_marginBottom="82dp"
-        android:gravity="center"
-        android:text="등이 있습니다."
-        android:textColor="#000000"
-        android:textSize="22dp" />
 
 
 

@@ -86,13 +86,13 @@ public class OutDoorPopupActivity extends Activity {
         r2.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
         r.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf"));
 
-        speak_string=r1.getText().toString()+building.getText().toString()+r2.getText().toString()+r.getText().toString();
-
         toggle = (ToggleButton)findViewById(R.id.speak);
 
         toggleListener = new CompoundButton.OnCheckedChangeListener() {
+
             @Override
             public void onCheckedChanged(CompoundButton view, boolean isChecked) {
+                speak_string= r1.getText().toString()+" "+building.getText().toString()+" "+r2.getText().toString()+" "+r.getText().toString();
                 if(isChecked){
                     speaker.allow(true);
                     speaker.speak(speak_string);
