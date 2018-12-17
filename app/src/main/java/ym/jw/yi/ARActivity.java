@@ -1,3 +1,9 @@
+/**
+ * author: jiwoon kim
+ * date: 2018-10-10
+ * purpose: 메인 엑티비티 실행
+ */
+
 package ym.jw.yi;
 
 import android.Manifest;
