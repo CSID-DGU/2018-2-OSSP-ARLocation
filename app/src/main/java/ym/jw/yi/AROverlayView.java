@@ -42,11 +42,13 @@ public class AROverlayView extends View {
         this.dbInfo = dbInfo;
     }
 
+    /*카메라를 돌릴때의 행렬 함수 업데이트*/
     public void updateRotatedProjectionMatrix(float[] rotatedProjectionMatrix) {
         this.rotatedProjectionMatrix = rotatedProjectionMatrix;
         this.invalidate();
     }
 
+    /*현재 위치 업데이트*/
     public void updateCurrentLocation(Location currentLocation) {
         this.currentLocation = currentLocation;
         this.invalidate();
@@ -96,6 +98,7 @@ public class AROverlayView extends View {
                 if (cameraCoordinateVector[2] < 0) {
                     float x = (0.5f + cameraCoordinateVector[0] / cameraCoordinateVector[3]) * canvas.getWidth();
                     float y = (0.5f - cameraCoordinateVector[1] / cameraCoordinateVector[3]) * canvas.getHeight();
+                    /*반경을 150-200m 사이로 조정*/
                     if ((currentLocation.getLatitude() - dbInfo.arPoints.get(i).getLocation().getLatitude() <= 0.0005 &&
                             currentLocation.getLatitude() - dbInfo.arPoints.get(i).getLocation().getLatitude() >= -0.0005) ||
                             (currentLocation.getLongitude() - dbInfo.arPoints.get(i).getLocation().getLongitude() <= 0.0005 &&

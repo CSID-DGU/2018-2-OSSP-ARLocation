@@ -19,7 +19,11 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+/**
+ * author: Yein Wone
+ * date: 2018-10-15
+ * purpose: 어플 글씨체 설정
+ */
 public class BaseActivity extends AppCompatActivity {
     public Typeface mTypeface=null;
 
