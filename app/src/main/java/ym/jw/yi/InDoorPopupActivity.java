@@ -137,6 +137,7 @@ public class InDoorPopupActivity extends Activity {
             this.values = values;
         }
 
+        /*서버 연결*/
         @Override
         protected String doInBackground(Void... params) {
 
@@ -166,7 +167,7 @@ public class InDoorPopupActivity extends Activity {
 
         }
     }
-
+    /*TTS 구현*/
     private void checkTTS(){
         Intent check = new Intent();
         check.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);

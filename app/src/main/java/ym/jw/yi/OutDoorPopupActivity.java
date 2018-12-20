@@ -119,7 +119,7 @@ public class OutDoorPopupActivity extends Activity {
 
     }
 
-
+    /*서버 연결해 정보 받아오기*/
     public class NetworkTask extends AsyncTask<Void, Void, String> {
 
         private String url;
@@ -160,6 +160,7 @@ public class OutDoorPopupActivity extends Activity {
         }
     }
 
+    /*TTS 구현*/
     private void checkTTS(){
         Intent check = new Intent();
         check.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);

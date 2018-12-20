@@ -14,7 +14,11 @@ import java.util.List;
 import ym.jw.yi.model.APPoint;
 import ym.jw.yi.model.ARPoint;
 
-
+/**
+ * author: Jiwoon Kim
+ * date: 2018-10-20
+ * purpose: 어플 시작 동작 구현
+ */
 public class DBInfo {
     private Context context;
     public List<ARPoint> arPoints;
@@ -24,6 +28,7 @@ public class DBInfo {
     public DBInfo(Context context) {
         this.context = context;
 
+        //php 연결
         String outdoorurl = "http://52.78.123.18/oT.php";
         String indoorurl = "http://52.78.123.18/iT.php";
 
@@ -34,6 +39,7 @@ public class DBInfo {
         inDoorNetworkTask.execute();
     }
 
+    //실외 동작
     public class OutDoorNetworkTask extends AsyncTask<Void, Void, String> {
 
         private String url;
@@ -95,6 +101,7 @@ public class DBInfo {
 
     }
 
+    //실내 동작
     public class InDoorNetworkTask extends AsyncTask<Void, Void, String> {
 
         private String url;

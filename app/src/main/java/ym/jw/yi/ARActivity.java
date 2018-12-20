@@ -109,6 +109,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
         detailLocation = (Button)findViewById(R.id.popupButton);
         isInside = false;
 
+        /*실내버튼*/
         indoorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +125,6 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
 
                 try {
                     currentAPMacAddress = getMacId().toUpperCase();
-                    /**이부분 함수로 구현해야함**/
                     tvCurrentLocation.setText(apView.searchingFloorName(currentAPMacAddress));
                 }catch(NullPointerException e){
                     Toast.makeText(getApplicationContext(),"와이파이를 연결해주세요.",Toast.LENGTH_SHORT).show();
@@ -133,7 +133,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
             }
         });
 
-
+        /*실외 버튼*/
         outdoorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,6 +156,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
             }
         });
 
+        /*위치정보 다시 불러오기 버튼*/
         reloadLocation.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
                 if(!isInside) {//실외일때 위치정보를 다시 불러오기
@@ -178,6 +179,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
 
         });
 
+        /*자세한 위치정보 버튼*/
         detailLocation.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
                 if(!isInside) {//실외 일때는 listactivity로 넘어감
@@ -219,7 +221,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
         super.onPause();
     }
 
-    public void requestCameraPermission() {
+    public void requestCameraPermission() {//카메라 접근 허용
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 this.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             this.requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSIONS_CODE);
@@ -228,7 +230,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
         }
     }
 
-    public void requestLocationPermission() {
+    public void requestLocationPermission() {//위치정보 접근 허용
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSIONS_CODE);
@@ -237,14 +239,14 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
         }
     }
 
-    public void initAROverlayView() {
+    public void initAROverlayView() {//AR View 새로고침
         if (arOverlayView.getParent() != null) {
             ((ViewGroup) arOverlayView.getParent()).removeView(arOverlayView);
         }
         cameraContainerLayout.addView(arOverlayView);
     }
 
-    public void initARCameraView() {
+    public void initARCameraView() {//카메라 view 새로고침
         reloadSurfaceView();
 
         if (arCamera == null) {
@@ -364,7 +366,7 @@ public class ARActivity extends BaseActivity implements SensorEventListener, Loc
 
         }
     }
-
+    /*최신 위치 정보로 업데이트*/
     private void updateLatestLocation() {
         if (arOverlayView !=null && location != null && !isInside) {
             arOverlayView.updateCurrentLocation(location);

@@ -25,10 +25,8 @@ import ym.jw.yi.Utils.DBInfo;
 import ym.jw.yi.helper.LocationHelper;
 
 /**
- * Created by ntdat on 1/13/17.
- */
-/*TODO: php파일로 테이블을 json으로 출력할 때 jsonarray 형식으로 출력->for문 쓰지말고 json 메소드로 바꾸기
-
+ * date: 2018-10-10
+ * purpose: AROverlayView 실행
  */
 public class AROverlayView extends View {
 
@@ -37,6 +35,7 @@ public class AROverlayView extends View {
     private Location currentLocation;
     private DBInfo dbInfo;
 
+    /*변수 setting*/
     public AROverlayView(Context context, DBInfo dbInfo) {
         super(context);
         this.context = context;
@@ -65,6 +64,7 @@ public class AROverlayView extends View {
         super(context);
     }
 
+    /*화면에 위치 표시해주는 onDraw함수*/
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);

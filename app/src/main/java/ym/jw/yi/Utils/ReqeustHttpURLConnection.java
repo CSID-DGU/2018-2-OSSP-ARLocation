@@ -11,6 +11,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
+/**
+ * author: Yein Wone
+ * date: 2018-10-20
+ * purpose: 서버 연결 httpconnection 기능 수행
+ */
 public class ReqeustHttpURLConnection {
     public String request(String _url, ContentValues _params) {
 

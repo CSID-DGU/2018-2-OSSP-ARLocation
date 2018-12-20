@@ -48,6 +48,7 @@ public class ListActivity extends AppCompatActivity {
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.rgb(0xED, 0x7D, 0x31)));
 
+        /*주변 건물 리스트를 버튼을 동적으로 생성해 표시*/
         final Button btn[] = new Button[buildingNameList.length];
         for(int i=0; i<buildingNameList.length; i++){
             if(buildingNameList[i]==null) break;

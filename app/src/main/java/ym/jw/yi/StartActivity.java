@@ -19,7 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-
+/**
+ * author: Yein Wone
+ * date: 2018-10-15
+ * purpose: 어플 시작 동작 구현
+ */
 public class StartActivity extends BaseActivity {
 
     private ImageView img;
